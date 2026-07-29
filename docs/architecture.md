@@ -1,11 +1,11 @@
-# Architecture Overview
+# Architecture
 
-## System Architecture
+## Architecture système
 
 ```
                ┌──────────────────────────────┐
-               │        Flutter App           │
-               │    BLoC / GoRouter / GetIt   │
+               │     Application Flutter      │
+               │   BLoC / GoRouter / GetIt    │
                └──────────┬───────────────────┘
                           │
               ┌───────────┴───────────────┐
@@ -13,35 +13,35 @@
               ▼               ▼           ▼
        ┌──────────┐   ┌────────────┐   ┌────────┐
        │  Nginx   │   │  Chat WS   │   │Firebase│
-       │ Gateway  │   │ Socket.IO  │   │  Auth  │
+       │Passerelle│   │ Socket.IO  │   │  Auth  │
        └────┬─────┘   └────────────┘   │  FCM   │
             │                          └────────┘
             ▼
     ┌──────────────────────────────────────┐
-    │      Microservices (NestJS)          │
+    │       Microservices (NestJS)         │
     ├──────────┬──────────┬───────┬────────┤
     │   auth   │   user   │  post │  feed  │
     ├──────────┼──────────┼───────┼────────┤
-    │Firebase  │ Profiles │ Posts │Person- │
-    │JWT       │Connexions│Comts  │alized  │
-    │OTP       │Chat (WS) │Likes  │Feed    │
-    │Password  │FCM tokens│Jobs   │Kafka   │
-    │Reset     │Blocking  │Hashtag│Consumer│
+    │Firebase  │ Profils  │Posts  │Perso-  │
+    │JWT       │Connexions│Comts  │nalisé  │
+    │OTP       │Chat (WS) │Likes  │Fil     │
+    │Mot de    │Tokens FCM│Emplois│Kafka   │
+    │passe     │Blocage   │Hashtag│Consumer│
     ├──────────┼──────────┼───────┼────────┤
     │notif.    │ mailer   │ media │search  │
     ├──────────┼──────────┼───────┼────────┤
-    │Push FCM  │ Email    │Image  │Type-   │
-    │In-app    │(gRPC)    │Upload │sense   │
+    │Push FCM  │ Email    │Upload │Type-   │
+    │In-app    │(gRPC)    │Images │sense   │
     │Email     │          │Thumbor│Fulltext│
-    │Kafka     │          │NSFW   │Geo-    │
-    │Consumer  │          │Check  │search  │
+    │Kafka     │          │NSFW   │Géo-    │
+    │Consumer  │          │Vérif. │recherch│
     ├──────────┼──────────┼───────┼────────┤
     │marketpl. │countrycty│dynlink│        │
     ├──────────┼──────────┼───────┼────────┤
-    │Business  │Countries │Deep   │        │
-    │Listings  │Cities    │Links  │        │
+    │Fiches    │Pays      │Liens  │        │
+    │commerces │Villes    │profs  │        │
     │PostGIS   │PostGIS   │PlaySt.│        │
-    │Gallery   │Nearest   │       │        │
+    │Galerie   │Plus      │       │        │
     └────┬─────┴────┬─────┴──┬────┴────────┘
          │          │        │
          ▼          ▼        ▼
@@ -50,7 +50,7 @@
    │  + PostGIS   │  Cache  │ KRaft│
    └───────────────────────────────┘
    ┌───────────────────────────────┐
-   │  Typesense   │ Thumbor  │Docker│
+   │ Typesense  │ Thumbor  │Docker │
    └───────────────────────────────┘
 ```
 
@@ -60,40 +60,40 @@
 
 ### Architecture
 
-The backend is a monorepo of **11 NestJS microservices** + **1 Python service**, sharing a common library. A shared library contains all database entities, repositories, DTOs, guards, and decorators — ensuring consistency across services.
+Le backend est un monorepo de **11 microservices NestJS** + **1 service Python**, partageant une bibliothèque commune. Celle-ci contient toutes les entités de base de données, repositories, DTOs, guards — garantissant la cohérence entre les services.
 
-Key design decisions:
+Choix d'architecture clés :
 
-- **Nx monorepo** — shared TypeScript library prevents code duplication across services
-- **Infrastructure as code** — all services and their dependencies (PostgreSQL, Redis, Kafka, Typesense) are defined in Docker Compose
-- **CI/CD** — GitHub Actions detects which services changed and only rebuilds/deploys those
+- **Monorepo Nx** — une bibliothèque TypeScript partagée évite la duplication de code entre services
+- **Infrastructure as code** — tous les services et leurs dépendances (PostgreSQL, Redis, Kafka, Typesense) sont définis dans Docker Compose
+- **CI/CD** — GitHub Actions détecte les services modifiés et ne rebuild/déploie que ceux-ci
 
 ### Communication
 
-Three inter-service communication patterns:
+Trois modes de communication inter-services :
 
-| Pattern | Protocol | Usage |
+| Mode | Protocole | Usage |
 |---|---|---|
-| **Async** | Kafka | Notifications, search indexing, feed recommendations |
-| **Sync** | gRPC | Email service calls |
-| **Real-time** | WebSocket (Socket.IO) | Chat messaging with presence detection |
+| **Asynchrone** | Kafka | Notifications, indexation recherche, recommandations |
+| **Synchrone** | gRPC | Appels au service d'emails |
+| **Temps réel** | WebSocket (Socket.IO) | Messagerie avec détection de présence |
 
-### Database
+### Base de données
 
-PostgreSQL + PostGIS for all spatial data:
-- User and business locations with accurate geo-distance calculations
-- Nearby search for marketplace listings
-- Nearest city reverse geocoding
+PostgreSQL + PostGIS pour toutes les données spatiales :
+- Localisation des utilisateurs et commerces avec calculs de distance précis
+- Recherche des commerces à proximité
+- Recherche de la ville la plus proche par coordonnées GPS
 
-Redis is used for caching and JWT token blacklisting. Full-text search is offloaded to Typesense, a dedicated search engine indexed in real-time via Kafka.
+Redis est utilisé pour le cache et la mise sur liste noire des tokens JWT. La recherche full-text est déléguée à Typesense, un moteur de recherche dédié indexé en temps réel via Kafka.
 
-### CI/CD Pipeline
+### Pipeline CI/CD
 
 ```
-Git push → Tests → Build Docker images → Push to GHCR → Deploy to VPS
+Git push → Tests → Build images Docker → Push vers GHCR → Déploiement VPS
 ```
 
-Smart change detection: the pipeline identifies which services were modified and only builds/deploys those, keeping deployments fast.
+Détection intelligente des changements : seuls les services modifiés sont reconstruits et déployés.
 
 ---
 
@@ -101,81 +101,81 @@ Smart change detection: the pipeline identifies which services were modified and
 
 ### Architecture
 
-Feature-first Flutter app with a clean layered architecture:
+Application Flutter organisée par fonctionnalités avec une architecture en couches :
 
 ```
-features/<feature>/
-├── bloc/           # State management
-├── screens/        # UI screens
-├── widgets/        # Feature-specific widgets
-└── service/        # Business logic
+features/<module>/
+├── bloc/           # Gestion d'état
+├── screens/        # Écrans
+├── widgets/        # Widgets spécifiques
+└── service/        # Logique métier
 ```
 
-**Data flow:** `UI → BLoC → Service → Repository → API`
+**Flux de données :** `UI → BLoC → Service → Repository → API`
 
-### 16 Feature Modules
+### 16 modules fonctionnels
 
-| Feature | Responsibility |
+| Module | Responsabilité |
 |---|---|
-| **auth** | Login, register, OTP, forgot password, multi-account switching |
-| **onboarding** | First-launch onboarding |
-| **initializer** | Startup state machine |
-| **home** | Main screen with tab navigation |
-| **feed** | Social feed + job offers |
-| **post** | Post CRUD, comments, likes, shares |
-| **job_offer** | Job offer creation, applications |
-| **marketplace** | Business listings |
-| **chat** | Real-time messaging |
-| **connexion** | Professional network |
-| **notification** | Push & in-app notifications |
-| **profile** | Profile display and editing |
-| **search** | Full-text search |
-| **hashtag** | Trending hashtags |
-| **block** | User blocking |
-| **setting** | Settings, password, account deletion |
+| **auth** | Connexion, inscription, OTP, mot de passe oublié, multi-comptes |
+| **onboarding** | Parcours de bienvenue au premier lancement |
+| **initializer** | Machine d'état au démarrage |
+| **home** | Écran principal avec navigation par onglets |
+| **feed** | Fil d'actualité social + offres d'emploi |
+| **post** | CRUD publications, commentaires, likes, partages |
+| **job_offer** | Création d'offres d'emploi, gestion des candidatures |
+| **marketplace** | Fiches commerces |
+| **chat** | Messagerie temps réel |
+| **connexion** | Réseau professionnel |
+| **notification** | Notifications push et in-app |
+| **profile** | Affichage et édition du profil |
+| **search** | Recherche full-text |
+| **hashtag** | Hashtags tendances |
+| **block** | Gestion des blocages |
+| **setting** | Paramètres, mot de passe, suppression de compte |
 
-### State Management
+### Gestion d'état
 
-- **BLoC** for complex flows (feed pagination, auth, chat)
-- **Cubits** for simple state (badge counts, toggles)
-- **Dependency injection** via GetIt (14 repositories, 22 services)
-- **GoRouter** for routing (50+ named routes) with auth-based redirects
+- **BLoC** pour les flux complexes (pagination du fil, authentification, chat)
+- **Cubits** pour les états simples (badges, toggles)
+- **Injection de dépendances** via GetIt (14 repositories, 22 services)
+- **GoRouter** pour le routing (50+ routes nommées) avec redirections selon l'état d'authentification
 
-### Networking
+### Réseau
 
-- **Dio** HTTP client with JWT auth interceptor and error handling
-- **Socket.IO** WebSocket client for real-time chat
-- **Firebase SDK** for auth, push notifications, crash reporting, app attestation
+- **Dio** HTTP client avec intercepteur JWT et gestion d'erreurs
+- **Socket.IO** client WebSocket pour le chat temps réel
+- **Firebase SDK** pour l'authentification, les notifications push, le crash reporting, l'attestation d'appareil
 
 ---
 
-## Security
+## Sécurité
 
-- **Firebase Auth** for identity (email/password, Google Sign-In)
-- **JWT** for internal API authentication
-- **Firebase App Check** (Play Integrity) to prevent API abuse
-- **Token blacklisting** via Redis on logout
-- **NSFW image detection** before storage
-- **Input validation** on all endpoints
+- **Firebase Auth** pour l'identité (email/mot de passe, Google Sign-In)
+- **JWT** pour l'authentification API interne
+- **Firebase App Check** (Play Integrity) pour empêcher les abus API
+- **Liste noire de tokens** via Redis à la déconnexion
+- **Détection d'images NSFW** avant stockage
+- **Validation des entrées** sur tous les endpoints
 
 ---
 
 ## Documentation
 
-Each sub-project has comprehensive documentation:
+Chaque sous-projet dispose d'une documentation complète :
 
 ### Backend
-| Document | Content |
+| Document | Contenu |
 |---|---|
-| `README.md` | Tech stack, commands, deployment |
-| `docs/architecture.md` | Full architecture overview |
-| `docs/features/*.md` | Per-feature docs |
-| `docs/roadmaps/*.md` | Development phase roadmaps |
+| `README.md` | Stack technique, commandes, déploiement |
+| `docs/architecture.md` | Vue d'ensemble architecture |
+| `docs/features/*.md` | Documentation par fonctionnalité |
+| `docs/roadmaps/*.md` | Roadmaps de développement |
 
 ### Frontend
-| Document | Content |
+| Document | Contenu |
 |---|---|
-| `README.md` | Project overview, installation |
-| `docs/architecture.md` | Flutter architecture |
-| `docs/features/*.md` | Feature documentation |
-| `docs/versions/*.md` | Release notes |
+| `README.md` | Présentation, installation |
+| `docs/architecture.md` | Architecture Flutter |
+| `docs/features/*.md` | Documentation des fonctionnalités |
+| `docs/versions/*.md` | Notes de version |

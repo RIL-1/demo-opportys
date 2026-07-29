@@ -5,9 +5,9 @@
 <h1 align="center">Opportys</h1>
 
 <p align="center">
-  <b>Professional Social Network for African Talent</b>
+  <b>Réseau social professionnel pour les talents africains</b>
   <br>
-  Connect. Share. Seize Opportunities.
+  Connecter. Partager. Saisir les opportunités.
 </p>
 
 <p align="center">
@@ -21,134 +21,134 @@
   <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white" alt="Docker">
   <img src="https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white" alt="Redis">
   <img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black" alt="Firebase">
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License">
+  <img src="https://img.shields.io/badge/Licence-MIT-green" alt="MIT License">
 </p>
 
 ---
 
-## Overview
+## Présentation
 
-**Opportys** is a mobile-first professional social network connecting professionals, freelancers, students, and craftspeople across Africa. Users can publish opportunities, discover posts, build their professional network, and exchange in real-time — all within a single platform.
+**Opportys** est un réseau social professionnel mobile qui connecte les professionnels, freelances, étudiants et artisans en Afrique. Les utilisateurs peuvent publier des opportunités, découvrir des publications, construire leur réseau professionnel et échanger en temps réel — le tout dans une seule application.
 
-> **Status:** Live on Google Play | Actively maintained
+> **Statut :** En ligne sur Google Play | Maintenu activement
 
 ---
 
-## Screenshots
+## Captures d'écran
 
-| Onboarding | Home Feed | Opportunities | Comments |
+| Onboarding | Fil d'actualité | Opportunités | Commentaires |
 |---|---|---|---|
 | ![onboarding](images/screenshots/onboarding.jpg) | ![home](images/screenshots/home.jpg) | ![plan](images/screenshots/plan-opportunite.jpg) | ![comments](images/screenshots/appercu-commentaire.jpg) |
 
-| Marketplace | Profile | Connections | Create Post |
+| Marketplace | Profil | Connexions | Publier |
 |---|---|---|---|
 | ![marketplace](images/screenshots/commerce-services.jpg) | ![profile](images/screenshots/mon-profil.jpg) | ![connexions](images/screenshots/com.opportys-connexions.jpg) | ![publish](images/screenshots/publier-post.jpg) |
 
 ---
 
-## Key Features
+## Fonctionnalités clés
 
-### Social Feed
-- Personalized feed with post and job offer discovery
-- Post creation with text, images, and video
-- Like, comment (threaded), share
-- Hashtag support with trending detection
-- @mentions with autocomplete
+### Fil d'actualité
+- Fil personnalisé avec publications et offres d'emploi
+- Création de posts texte, image et vidéo
+- Like, commentaire (threadé), partage
+- Hashtags avec détection des tendances
+- @mentions avec autocomplétion
 
-### Professional Networking
-- Bilateral connection system (request/accept)
-- Profile with professional details, activity fields, location
-- Profile view tracking and statistics
-- Connection suggestions
+### Réseau professionnel
+- Système de connexion bilatéral (demande/acceptation)
+- Profil avec détails professionnels, domaines d'activité, localisation
+- Statistiques et suivi des vues de profil
+- Suggestions de connexions
 
-### Real-Time Messaging
-- WebSocket chat via Socket.IO
-- Message read receipts and typing indicators
-- Image attachment support
-- Online/offline presence detection
+### Messagerie temps réel
+- Chat WebSocket via Socket.IO
+- Accusés de lecture et indicateurs de saisie
+- Envoi d'images dans les messages
+- Détection de présence en ligne/hors ligne
 
-### Job Offers & Opportunities
-- Multi-step job offer creation wizard
-- CV/resume upload and application management
-- Activity field categorization
-- Location-based filtering
+### Offres d'emploi et opportunités
+- Assistant de création d'offre en plusieurs étapes
+- Dépôt de CV et gestion des candidatures
+- Catégorisation par domaine d'activité
+- Filtrage par localisation
 
 ### Marketplace
-- Business listings (products and/or services)
-- Geo-tagged businesses with PostGIS
-- Gallery, logo, cover image, opening hours
-- Nearby search with radius filtering
+- Fiches commerces et services (produits et/ou services)
+- Établissements géolocalisés avec PostGIS
+- Galerie photo, logo, image de couverture, horaires d'ouverture
+- Recherche à proximité avec filtrage par rayon
 
-### Search
-- Full-text search powered by Typesense
-- Faceted filtering (type, activity field, hashtag, offer type)
-- Geo-search with proximity sorting
-- Search history with autocomplete
+### Recherche
+- Recherche full-text avec Typesense
+- Filtres par facettes (type, domaine d'activité, hashtag)
+- Recherche géographique avec tri par proximité
+- Historique de recherche avec autocomplétion
 
 ### Notifications
-- Push notifications via Firebase Cloud Messaging
-- In-app notification feed
-- Email notifications
-- Configurable per-type notification settings
+- Notifications push via Firebase Cloud Messaging
+- Fil de notifications in-app
+- Notifications email
+- Paramètres de notification configurables par type
 
-### Security
+### Sécurité
 - Firebase Authentication + JWT
 - Firebase App Check (Play Integrity)
-- NSFW image detection
-- Token blacklisting via Redis
+- Détection d'images NSFW
+- Mise sur liste noire des tokens via Redis
 
 ---
 
-## Tech Stack
+## Stack technique
 
-### Backend — 12 Microservices
+### Backend — 12 microservices
 
-| Service | Technology | Responsibility |
+| Service | Technologie | Responsabilité |
 |---|---|---|
-| **auth** | NestJS | Firebase token verification, JWT issuance, OTP, password reset |
-| **user** | NestJS + Socket.IO | Profiles, social graph, real-time chat |
-| **post** | NestJS | Posts, comments, likes, job offers, hashtags |
-| **feed** | NestJS | Personalized feed & recommendations |
-| **notification** | NestJS | Push, email, in-app notifications |
-| **mailer** | NestJS (gRPC) | Transactional emails |
-| **media** | NestJS | Image/PDF upload, validation, Thumbor resize |
-| **search** | NestJS | Typesense full-text + geo-search |
-| **marketplace** | NestJS | Business listings with geo-location |
-| **countrycity** | NestJS | Geographic reference data (cities/countries) |
-| **dynamiclink** | NestJS | Deep link generation for Play Store |
-| **safe-image-checker** | Python FastAPI | NSFW detection |
+| **auth** | NestJS | Vérification Firebase, JWT, OTP, réinitialisation mot de passe |
+| **user** | NestJS + Socket.IO | Profils, connexions, messagerie temps réel |
+| **post** | NestJS | Publications, commentaires, likes, offres d'emploi, hashtags |
+| **feed** | NestJS | Fil d'actualité personnalisé |
+| **notification** | NestJS | Notifications push, email, in-app |
+| **mailer** | NestJS (gRPC) | Envoi d'emails transactionnels |
+| **media** | NestJS | Upload images/PDF, validation, redimensionnement Thumbor |
+| **search** | NestJS | Recherche full-text Typesense + recherche géographique |
+| **marketplace** | NestJS | Fiches commerces avec géolocalisation |
+| **countrycity** | NestJS | Données géographiques de référence (pays/villes) |
+| **dynamiclink** | NestJS | Génération de liens profonds pour le Play Store |
+| **safe-image-checker** | Python FastAPI | Détection NSFW |
 
 ### Frontend
 
-| Layer | Technology |
+| Couche | Technologie |
 |---|---|
 | **Framework** | Flutter (Android, iOS, Web, Desktop) |
 | **State Management** | BLoC + Cubit |
 | **Routing** | GoRouter |
 | **DI** | GetIt |
-| **Networking** | Dio + Socket.IO |
-| **Maps** | OpenStreetMap (flutter_map) |
+| **Réseau** | Dio + Socket.IO |
+| **Cartes** | OpenStreetMap (flutter_map) |
 
-### Infrastructure & DevOps
+### Infrastructure et DevOps
 
-| Component | Details |
+| Composant | Détails |
 |---|---|
-| **Database** | PostgreSQL + PostGIS |
+| **Base de données** | PostgreSQL + PostGIS |
 | **Cache** | Redis |
-| **Async Messaging** | Apache Kafka |
-| **Search Engine** | Typesense |
-| **Container Runtime** | Docker + Docker Compose |
+| **Messagerie asynchrone** | Apache Kafka |
+| **Moteur de recherche** | Typesense |
+| **Conteneurisation** | Docker + Docker Compose |
 | **CI/CD** | GitHub Actions → GHCR → VPS |
-| **Image Server** | Thumbor (on-demand resize) |
-| **Auth Provider** | Firebase Auth |
+| **Serveur d'images** | Thumbor (redimensionnement à la demande) |
+| **Authentification** | Firebase Auth |
 
-### Architecture Diagram
+### Schéma d'architecture
 
 ```
-Flutter App
+Application Flutter
     │
     ▼ HTTPS / WebSocket
-  Nginx Gateway
+  Passerelle Nginx
     │
     ├──► auth
     ├──► user
@@ -170,21 +170,21 @@ Flutter App
 
 ---
 
-## Communication Patterns
+## Modes de communication
 
-| Pattern | Protocol | Usage |
+| Mode | Protocole | Usage |
 |---|---|---|
-| **REST** | HTTP/HTTPS | CRUD operations between app and services |
-| **Async** | Kafka | Notifications, search indexing, feed recommendations |
-| **Sync** | gRPC | Email service calls |
-| **Real-time** | WebSocket (Socket.IO) | Chat messaging with presence detection |
+| **REST** | HTTP/HTTPS | Opérations CRUD entre l'app et les services |
+| **Asynchrone** | Kafka | Notifications, indexation recherche, recommandations |
+| **Synchrone** | gRPC | Appels au service d'emails |
+| **Temps réel** | WebSocket (Socket.IO) | Messagerie avec détection de présence |
 
 ---
 
-## Project Structure
+## Structure du projet
 
 ```
-backend/                         # Backend monorepo (Nx + NestJS)
+backend/                         # Monorepo backend (Nx + NestJS)
 ├── apps/
 │   ├── auth/         service
 │   ├── user/         service
@@ -198,51 +198,51 @@ backend/                         # Backend monorepo (Nx + NestJS)
 │   ├── countrycity/  service
 │   └── dynamiclink/  service
 ├── libs/
-│   └── shared/       # Shared entities, repositories, DTOs, guards
-├── docs/             # Architecture, deployment, features
+│   └── shared/       # Entités, repositories, DTOs, guards partagés
+├── docs/             # Documentation architecture, déploiement, features
 ├── docker-compose.yaml
 └── .github/workflows/
 
-frontend/                        # Flutter app
+frontend/                        # Application Flutter
 ├── lib/
-│   ├── features/      # 16 feature modules
-│   ├── blocs/         # Shared BLoCs
-│   ├── repositories/  # API repositories
-│   ├── services/      # Business services
-│   ├── widgets/       # Reusable widgets
-│   └── di/            # Dependency injection
+│   ├── features/      # 16 modules fonctionnels
+│   ├── blocs/         # BLoCs partagés
+│   ├── repositories/  # Repositories API
+│   ├── services/      # Services métier
+│   ├── widgets/       # Widgets réutilisables
+│   └── di/            # Injection de dépendances
 ├── docs/
 └── pubspec.yaml
 
-safe-image-checker/              # NSFW detection service
-├── app.py             # FastAPI service
+safe-image-checker/              # Service de détection NSFW
+├── app.py             # Service FastAPI
 ├── Dockerfile
 └── docker-compose.yml
 ```
 
 ---
 
-## Key Metrics
+## Chiffres clés
 
-- **11 NestJS microservices** + 1 Python service
-- **43 database entities**
-- **16 Flutter feature modules**
-- **50+ named routes**
+- **11 microservices NestJS** + 1 service Python
+- **43 entités de base de données**
+- **16 modules fonctionnels Flutter**
+- **50+ routes nommées**
 - **14 repositories, 22 services**
-- **CI/CD** with smart change detection
+- **CI/CD** avec détection intelligente des changements
 
 ---
 
-## Learn More
+## En savoir plus
 
-| Resource | Link |
+| Ressource | Lien |
 |---|---|
 | **Google Play** | [com.opportys](https://play.google.com/store/apps/details?id=com.opportys) |
 | **Architecture** | [docs/architecture.md](docs/architecture.md) |
-| **Technical Highlights** | [docs/tour-de-force.md](docs/tour-de-force.md) |
+| **Points forts techniques** | [docs/tour-de-force.md](docs/tour-de-force.md) |
 
 ---
 
-## License
+## Licence
 
 [MIT](LICENSE) © 2026 Richard LABITE
