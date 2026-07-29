@@ -48,7 +48,7 @@
 
 ## Démo vidéo
 
-<video src="images/demo/opportys-demo.mp4" controls width="100%"></video>
+[![Vidéo démo Opportys](images/screenshots/home.jpg)](https://youtube.com/shorts/RlI4S5zDWko)
 
 ---
 
