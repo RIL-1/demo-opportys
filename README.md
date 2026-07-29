@@ -48,7 +48,9 @@
 
 ## Démo vidéo
 
-[![Vidéo démo Opportys](images/screenshots/home.jpg)](https://youtube.com/shorts/RlI4S5zDWko)
+<a href="https://youtube.com/shorts/RlI4S5zDWko">
+  <img src="images/screenshots/home.jpg" alt="Vidéo démo Opportys" width="200">
+</a>
 
 ---
 
