@@ -46,6 +46,12 @@
 
 ---
 
+## Démo vidéo
+
+<video src="images/demo/opportys-demo.mp4" controls width="100%"></video>
+
+---
+
 ## Fonctionnalités clés
 
 ### Fil d'actualité
