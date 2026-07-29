@@ -30,7 +30,7 @@
 
 **Opportys** est un réseau social professionnel mobile qui connecte les professionnels, freelances, étudiants et artisans en Afrique. Les utilisateurs peuvent publier des opportunités, découvrir des publications, construire leur réseau professionnel et échanger en temps réel — le tout dans une seule application.
 
-> **Statut :** En ligne sur Google Play | Maintenu activement
+> **Statut :** En ligne sur Google Play
 
 ---
 
@@ -151,7 +151,7 @@ Application Flutter
   Passerelle Nginx
     │
     ├──► auth
-    ├──► user
+    ├──► user (REST + WebSocket chat)
     ├──► post
     ├──► feed
     ├──► notification ──► gRPC ──► mailer
