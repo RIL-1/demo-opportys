@@ -1,1 +1,0 @@
-feat: ajout de la présentation du projet Opportys avec README, documentation d'architecture et points forts techniques en français
