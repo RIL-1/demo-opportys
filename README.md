@@ -5,7 +5,7 @@
 <h1 align="center">Opportys</h1>
 
 <p align="center">
-  <b>Réseau social professionnel pour les talents africains</b>
+  <b>Réseau social professionnel pour les talents</b>
   <br>
   Connecter. Partager. Saisir les opportunités.
 </p>
@@ -28,7 +28,7 @@
 
 ## Présentation
 
-**Opportys** est un réseau social professionnel mobile qui connecte les professionnels, freelances, étudiants et artisans en Afrique. Les utilisateurs peuvent publier des opportunités, découvrir des publications, construire leur réseau professionnel et échanger en temps réel — le tout dans une seule application.
+**Opportys** est un réseau social professionnel mobile qui connecte les professionnels, freelances, étudiants et artisans. Les utilisateurs peuvent publier des opportunités, découvrir des publications, construire leur réseau professionnel et échanger en temps réel — le tout dans une seule application.
 
 > **Statut :** En ligne sur Google Play
 
