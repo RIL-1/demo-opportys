@@ -48,9 +48,9 @@
 
 ## Démo vidéo
 
-<a href="https://youtube.com/shorts/RlI4S5zDWko">
-  <img src="images/screenshots/home.jpg" alt="Vidéo démo Opportys" width="200">
-</a>
+[Démo de l'application Opportys | Aperçu de quelques fonctionnalités](https://youtube.com/shorts/RlI4S5zDWko)
+
+[Concevoir un réseau social : Architecture & Développement | Opportys #1](https://www.youtube.com/watch?v=NnG3NiTzNhA)
 
 ---
 
